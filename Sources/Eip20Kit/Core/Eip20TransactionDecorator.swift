@@ -10,7 +10,8 @@ class Eip20TransactionDecorator {
 }
 
 extension Eip20TransactionDecorator: ITransactionDecorator {
-    public func decoration(from: Address?, to: Address?, value: BigUInt?, contractMethod: ContractMethod?, internalTransactions _: [InternalTransaction], eventInstances: [ContractEventInstance]) -> TransactionDecoration? {
+    
+    public func decoration(from: Address?, to: Address?, value: BigUInt?, contractMethod: ContractMethod?, internalTransactions _: [InternalTransaction], eventInstances: [ContractEventInstance], isLock: Bool) -> TransactionDecoration? {
         guard let from, let to, let value, let contractMethod else {
             return nil
         }
