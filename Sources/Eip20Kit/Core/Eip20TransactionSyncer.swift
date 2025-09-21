@@ -25,7 +25,7 @@ class Eip20TransactionSyncer {
                 value: tx.value,
                 tokenName: tx.tokenName,
                 tokenSymbol: tx.tokenSymbol,
-                tokenDecimal: tx.tokenDecimal
+                tokenDecimal: tx.tokenDecimal.intValue!
             )
         }
 
@@ -49,11 +49,11 @@ extension Eip20TransactionSyncer: ITransactionSyncer {
                     timestamp: tx.timestamp,
                     isFailed: false,
                     blockNumber: tx.blockNumber,
-                    transactionIndex: tx.transactionIndex,
+                    transactionIndex: tx.transactionIndex.intValue!,
                     nonce: tx.nonce,
-                    gasPrice: tx.gasPrice,
-                    gasLimit: tx.gasLimit,
-                    gasUsed: tx.gasUsed
+                    gasPrice: tx.gasPrice.intValue!,
+                    gasLimit: tx.gasLimit.intValue!,
+                    gasUsed: tx.gasUsed.intValue!
                 )
             }
 
