@@ -49,7 +49,7 @@ extension Eip20TransactionSyncer: ITransactionSyncer {
                     timestamp: tx.timestamp,
                     isFailed: false,
                     blockNumber: tx.blockNumber,
-                    transactionIndex: Int(tx.transactionIndex.description),
+                    transactionIndex: tx.transactionIndex.flatMap { Int($0.description) },
                     nonce: tx.nonce,
                     gasPrice: Int(tx.gasPrice.description),
                     gasLimit: Int(tx.gasLimit.description),
