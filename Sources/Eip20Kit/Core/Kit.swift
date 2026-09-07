@@ -107,6 +107,15 @@ public extension Kit {
         allowanceManager.approveTransactionData(spenderAddress: spenderAddress, amount: amount)
     }
 
+    // static variant for callers that build approve calldata without a Kit instance
+    static func approveTransactionData(contractAddress: Address, spenderAddress: Address, amount: BigUInt) -> TransactionData {
+        TransactionData(
+            to: contractAddress,
+            value: 0,
+            input: ApproveMethod(spender: spenderAddress, value: amount).encodedABI()
+        )
+    }
+
     func transferTransactionData(to: Address, value: BigUInt) -> TransactionData {
         transactionManager.transferTransactionData(to: to, value: value)
     }
@@ -139,9 +148,12 @@ public extension Kit {
         return kit
     }
 
+    static func transactionSyncer(for evmKit: EvmKit.Kit) -> ITransactionSyncer {
+        Eip20TransactionSyncer(provider: evmKit.transactionProvider, storage: evmKit.eip20Storage)
+    }
+
     static func addTransactionSyncer(to evmKit: EvmKit.Kit) {
-        let syncer = Eip20TransactionSyncer(provider: evmKit.transactionProvider, storage: evmKit.eip20Storage)
-        evmKit.add(transactionSyncer: syncer)
+        evmKit.add(transactionSyncer: transactionSyncer(for: evmKit))
     }
 
     static func addDecorators(to evmKit: EvmKit.Kit) {
